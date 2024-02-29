@@ -1,6 +1,5 @@
 const {Model, DataTypes}= require('sequelize');
 const connection = require('../DataBase/connection');
-const restaurant = require('./restaurant');
 
 class product extends Model{
 
@@ -33,3 +32,4 @@ product.init({
     paranoid: true,
     deletedAt: 'destroyTime'
 });
+module.exports=product;
