@@ -9,7 +9,7 @@ restaurant.init({
         primaryKey: true,
         autoIncrement: true
     },
-    retaurantName:{
+    restaurantName:{
         type:DataTypes.STRING,
         unique: true,
         allowNull:false

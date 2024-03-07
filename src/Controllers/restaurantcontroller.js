@@ -6,7 +6,7 @@ async function createRestaurant(req, res){
         await restaurant.create({
             restaurantName: req.body.restaurantName,
             restaurantNit: req.body.restaurantNit,
-            restaurantAddress: req.body.restaurantAdress,
+            restaurantAddress: req.body.restaurantAddress,
             restaurantPhone: req.body.restaurantPhone,
             cityId: req.body.cityId
         }).then(function (data){
@@ -28,13 +28,14 @@ async function listRestaurant(req, res){
     try{
         await restaurant.findAll({
             attributes:[
+                'restaurantId',
                 'restaurantName',
                 'restaurantNit',
                 'restaurantAddress',
                 'restaurantPhone',
                 'cityId'
             ],
-            order: ['restauranteName']
+            order: ['restaurantName']
         }).then(function(data){
             return res.status(200).json({
                 data:data
@@ -93,10 +94,30 @@ async function disableRestaurant(req, res){
     }
 }
 
+async function enableRestaurant(req, res){
+    try{
+        await restaurant.restore({
+            where:{restaurantId:req.params.restaurantId}
+        }).then(function(data){
+            return res.status(200).json({
+                data:data
+            });
+        }).catch(error=>{
+            return res.status(400).json({
+                error:error
+            });
+        })
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
 
 module.exports={
     createRestaurant,
     listRestaurant,
     updateRestaurant,
-    disableRestaurant
+    disableRestaurant,
+    enableRestaurant
 }
